@@ -19,7 +19,7 @@ public class controller implements ActionListener{
     private int test = 1;
     private MDI main;
     private InsertBook addingBook;
-    private ManageBooks books;
+    private Books books;
     //ปุ่มในตาราง
     private ButtonRenderer btn;
     private JButton button;
