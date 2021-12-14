@@ -22,18 +22,21 @@ public class InsertBook {
 
     public InsertBook() {
         frame = new JFrame("Adding Book");
+        frame.setResizable(false);
 
         //หัวข้อ
         pHeading = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        heading = new JLabel("การเพิ่มหนังสือ");
-        heading.setFont(new Font("Angsana new", Font.BOLD, 56));
+        heading = new JLabel("Adding a Book");
+        heading.setForeground(Color.WHITE);
+        heading.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 56));
         pHeading.add(heading);
+        pHeading.setBackground(new Color(69,68,68));
 
         //สร้าง form
-        name = new JLabel("ชื่อหนังสือ");
+        name = new JLabel("Book Name:");
         nameTF = new JTextField(15);
-        name.setFont(new Font("Angsana new", Font.BOLD, 30));
-        nameTF.setFont(new Font("Angsana new", Font.BOLD, 30));
+        name.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+        nameTF.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
         pNameLB = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         pNameLB.add(name);
         pNameG = new JPanel(new GridLayout(1, 2));
@@ -41,17 +44,21 @@ public class InsertBook {
         pNameG.add(nameTF);
         p1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p1.add(pNameG);
+        
+        pNameLB.setBackground(new Color(69,68,68));
+        name.setForeground(Color.WHITE);
+        p1.setBackground(new Color(69,68,68));
 
-        category = new JLabel("หมวดหมู่");
+        category = new JLabel("Type:");
         categoryCB = new JComboBox();
-        categoryCB.addItem("เบ็ดเตล็ด");
-        categoryCB.addItem("การ์ตูน");
-        categoryCB.addItem("นิยาย");
-        categoryCB.addItem("การลงทุน");
-        categoryCB.addItem("เทคโนโลยี");
-        categoryCB.addItem("ประวัติศาสตร์ การเมือง");
-        category.setFont(new Font("Angsana new", Font.BOLD, 30));
-        categoryCB.setFont(new Font("Angsana new", Font.BOLD, 30));
+        categoryCB.addItem("Other");
+        categoryCB.addItem("Comic/Manga");
+        categoryCB.addItem("Novel");
+        categoryCB.addItem("Business");
+        categoryCB.addItem("Technology");
+        categoryCB.addItem("History/Politics");
+        category.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+        categoryCB.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
         pCategoryLB = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         pCategoryLB.add(category);
         pCategoryG = new JPanel(new GridLayout(1, 2));
@@ -60,11 +67,16 @@ public class InsertBook {
         p2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p2.add(pCategoryG);
         ((JLabel)categoryCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-
-        author = new JLabel("ผู้แต่ง");
+        
+        pCategoryLB.setBackground(new Color(69,68,68));
+        category.setForeground(Color.WHITE);
+        p2.setBackground(new Color(69,68,68));
+        categoryCB.setBackground(new Color(255,0,100));
+        
+        author = new JLabel("Author:");
         authorTF = new JTextField(15);
-        author.setFont(new Font("Angsana new", Font.BOLD, 30));
-        authorTF.setFont(new Font("Angsana new", Font.BOLD, 30));
+        author.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+        authorTF.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
         pAuthorLB = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         pAuthorLB.add(author);
         pAuthorG = new JPanel(new GridLayout(1, 2));
@@ -72,18 +84,26 @@ public class InsertBook {
         pAuthorG.add(authorTF);
         p3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p3.add(pAuthorG);
+        
+        pAuthorLB.setBackground(new Color(69,68,68));
+        author.setForeground(Color.WHITE);
+        p3.setBackground(new Color(69,68,68));
 
-        pricePerDay = new JLabel("ราคา/วัน");
+        pricePerDay = new JLabel("Price/Day:");
         pricePerDayTF = new JTextField(14);
-        pricePerDay.setFont(new Font("Angsana new", Font.BOLD, 30));
-        pricePerDayTF.setFont(new Font("Angsana new", Font.BOLD, 30));
+        pricePerDay.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
+        pricePerDayTF.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
         pPricePerDayLB = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 5));
         pPricePerDayLB.add(pricePerDay);
         pPricePerDayG = new JPanel(new GridLayout(1, 2));
         pPricePerDayG.add(pPricePerDayLB);
         pPricePerDayG.add(pricePerDayTF);
-        p4 = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 5));
+        p4 = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         p4.add(pPricePerDayG);
+        
+        pPricePerDayLB.setBackground(new Color(69,68,68));
+        pricePerDay.setForeground(Color.WHITE);
+        p4.setBackground(new Color(69,68,68));
         
         pForm = new JPanel(new GridLayout(2, 2));
         pForm.add(p1);
@@ -92,11 +112,14 @@ public class InsertBook {
         pForm.add(p4);
 
         //สร้างปุ่มเพิ่มหนังสือ
-        add = new JButton("เพิ่มหนังสือ");
-        add.setFont(new Font("Angsana new", Font.BOLD, 30));
+        add = new JButton("Add a Book");
+        add.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
         pAdd = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         pAdd.add(add);
-
+        
+        pAdd.setBackground(new Color(69,68,68));
+        add.setBackground(new Color(255,0,100));
+        add.setForeground(Color.WHITE);
         
         frame.add(pHeading, BorderLayout.NORTH);
         frame.add(pForm);

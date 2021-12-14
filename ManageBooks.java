@@ -31,18 +31,20 @@ public class ManageBooks extends JInternalFrame {
 
     public void init() {
         //หัวข้อการจัดการหนังสือ
-        heading = new JLabel("การจัดการหนังสือ");
-        heading.setFont(new Font("Angsana new", Font.BOLD, 56));
+        heading = new JLabel("Book Management");
+        heading.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 56));
         pHeading = new JPanel();
         pHeading.add(heading);
+        pHeading.setBackground(new Color(69,68,68));
+        heading.setForeground(Color.WHITE);
 
         //ตารางแสดงข้อมูลหนังสือ
         model = new DefaultTableModel();
         tableOfInfoBooks = new JTable();
         scroll = new JScrollPane(tableOfInfoBooks);
-        model.addColumn("รหัสหนังสือ");
-        model.addColumn("หมวดหมู่");
-        model.addColumn("ชื่อหนังสือ");
+        model.addColumn("Book ID");
+        model.addColumn("Type");
+        model.addColumn("Book Name");
         model.addColumn("");
         tableOfInfoBooks.setModel(model);
         //ปุ่มในตาราง
@@ -53,6 +55,14 @@ public class ManageBooks extends JInternalFrame {
         tableOfInfoBooks.getTableHeader().setFont(frame.headFont.deriveFont(30f));
         tableOfInfoBooks.getTableHeader().setOpaque(false);
         tableOfInfoBooks.setFont(frame.titleFont);
+        
+        //Style ของ ตาราง
+        tableOfInfoBooks.setBackground(new Color(69,69,69));
+        tableOfInfoBooks.setForeground(Color.white);
+        tableOfInfoBooks.getTableHeader().setBackground(new Color(100,100,100));
+        tableOfInfoBooks.getTableHeader().setOpaque(false);
+        tableOfInfoBooks.getTableHeader().setForeground(Color.white);
+        
         //text อยู่ตรงกลาง ในตาราง
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -62,21 +72,31 @@ public class ManageBooks extends JInternalFrame {
 
         //คืนหนังสือ
         pReturnBook = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        bookCode = new JLabel("รหัสหนังสือ");
+        bookCode = new JLabel("Book ID");
         bookCode.setFont(frame.titleFont);
         bookCodeTF = new JTextField(15);
         bookCodeTF.setFont(frame.titleFont);
-        returnBook = new JButton("คืนหนังสือ");
+        returnBook = new JButton("Return a Book");
         returnBook.setFont(frame.titleFont);
         pReturnBook.add(bookCode);
         pReturnBook.add(bookCodeTF);
         pReturnBook.add(returnBook);
+        
+        pReturnBook.setBackground(new Color(69,68,68));
+        bookCode.setForeground(Color.WHITE);
+        returnBook.setBackground(new Color(250,0,100));
+        returnBook.setForeground(Color.white);
 
         //เพิ่มหนังสือ
         pAddBook = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        addBooks = new JButton("เพิ่มหนังสือ");
+        addBooks = new JButton("Add a Book");
         pAddBook.add(addBooks);
         addBooks.setFont(frame.titleFont);
+        
+        pAddBook.setBackground(new Color(69,68,68));
+        addBooks.setForeground(Color.WHITE);
+        addBooks.setBackground(new Color(250,0,100));
+
 
         //นำเพิ่มกับคืนรวมกัน
         pAddBookAndReturnBook = new JPanel(new GridLayout(1, 2));
@@ -86,8 +106,8 @@ public class ManageBooks extends JInternalFrame {
         //ค้นหาหนังสือ
         pSearch = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         searchCB = new JComboBox();
-        searchCB.addItem("รหัสหนังสือ");
-        searchCB.addItem("ชื่อหนังสือ");
+        searchCB.addItem("Book ID");
+        searchCB.addItem("Book Name");
         searchCB.setFont(frame.titleFont);
         searchTF = new JTextField(15);
         searchTF.setFont(frame.titleFont);
@@ -100,6 +120,14 @@ public class ManageBooks extends JInternalFrame {
         pSearch.add(searchCB);
         pSearch.add(searchTF);
         pSearch.add(search);
+        
+        searchCB.setBackground(new Color(250,0,100));
+        searchCB.setForeground(Color.white);
+        
+        pSearch.setBackground(new Color(69,68,68));
+        search.setBackground(new Color(250,0,100));
+        search.setForeground(Color.white);
+
 
         //หัวข้อกับค้นหารวมกัน
         pHeadingAndSearch = new JPanel(new GridLayout(2, 1));
