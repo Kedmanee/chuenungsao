@@ -8,6 +8,7 @@
  *
  * @author lenovo
  */
+import java.awt.*;
 import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.JButton;
@@ -18,7 +19,7 @@ public class controller implements ActionListener{
     private int test = 1;
     private MDI main;
     private InsertBook addingBook;
-    private Books books;
+    private ManageBooks books;
     //ปุ่มในตาราง
     private ButtonRenderer btn;
     private JButton button;
@@ -48,7 +49,7 @@ public class controller implements ActionListener{
             addingBook.getNameTF().setText("");
             addingBook.getAuthorTF().setText("");
             addingBook.getPricePerDayTF().setText("");
-            addingBook.getCategoryCB().setSelectedItem("เบ็ดเตล็ด");
+            addingBook.getCategoryCB().setSelectedItem("Other");
             
         }
 
@@ -57,12 +58,15 @@ public class controller implements ActionListener{
     class ButtonRenderer extends JButton implements TableCellRenderer {
 
         public ButtonRenderer() {
+            //ปรับสีปุ่มในตาราง
             setOpaque(true);
+            setBackground(new Color(69,69,69));
+            setForeground(Color.white);
         }
 
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
-            setText((value == null) ? "รายละเอียดหนังสือ" : value.toString());
+            setText((value == null) ? "More Details..." : value.toString());
             return this;
         }
     }
@@ -77,7 +81,7 @@ public class controller implements ActionListener{
 
         public Component getTableCellEditorComponent(JTable table, Object value,
                 boolean isSelected, int row, int column) {
-            label = (value == null) ? "รายละเอียดหนังสือ" : value.toString();
+            label = (value == null) ? "More Details..." : value.toString();
             button.setText(label);
             return button;
         }

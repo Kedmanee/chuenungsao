@@ -22,7 +22,7 @@ public class InsertBook {
 
     public InsertBook() {
         frame = new JFrame("Adding Book");
-        frame.setResizable(false);
+        frame.setResizable(false); //ให้หน้า add book ปรับขนาดไม่ได้
 
         //หัวข้อ
         pHeading = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -45,6 +45,7 @@ public class InsertBook {
         p1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p1.add(pNameG);
         
+        //สีใน Name
         pNameLB.setBackground(new Color(69,68,68));
         name.setForeground(Color.WHITE);
         p1.setBackground(new Color(69,68,68));
@@ -68,6 +69,7 @@ public class InsertBook {
         p2.add(pCategoryG);
         ((JLabel)categoryCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
         
+        //สี ใน Category
         pCategoryLB.setBackground(new Color(69,68,68));
         category.setForeground(Color.WHITE);
         p2.setBackground(new Color(69,68,68));
@@ -85,6 +87,7 @@ public class InsertBook {
         p3 = new JPanel(new FlowLayout(FlowLayout.LEFT, 30, 5));
         p3.add(pAuthorG);
         
+        //สี ใน Author
         pAuthorLB.setBackground(new Color(69,68,68));
         author.setForeground(Color.WHITE);
         p3.setBackground(new Color(69,68,68));
@@ -101,6 +104,7 @@ public class InsertBook {
         p4 = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         p4.add(pPricePerDayG);
         
+        //สีใน PricePerDay
         pPricePerDayLB.setBackground(new Color(69,68,68));
         pricePerDay.setForeground(Color.WHITE);
         p4.setBackground(new Color(69,68,68));
@@ -117,6 +121,7 @@ public class InsertBook {
         pAdd = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         pAdd.add(add);
         
+        //สีปุ่ม Add a Book
         pAdd.setBackground(new Color(69,68,68));
         add.setBackground(new Color(255,0,100));
         add.setForeground(Color.WHITE);

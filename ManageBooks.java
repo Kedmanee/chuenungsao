@@ -56,7 +56,7 @@ public class ManageBooks extends JInternalFrame {
         tableOfInfoBooks.getTableHeader().setOpaque(false);
         tableOfInfoBooks.setFont(frame.titleFont);
         
-        //Style ของ ตาราง
+        //สี ของ ตาราง
         tableOfInfoBooks.setBackground(new Color(69,69,69));
         tableOfInfoBooks.setForeground(Color.white);
         tableOfInfoBooks.getTableHeader().setBackground(new Color(100,100,100));
@@ -82,6 +82,7 @@ public class ManageBooks extends JInternalFrame {
         pReturnBook.add(bookCodeTF);
         pReturnBook.add(returnBook);
         
+        //สีใน ReturnBooks
         pReturnBook.setBackground(new Color(69,68,68));
         bookCode.setForeground(Color.WHITE);
         returnBook.setBackground(new Color(250,0,100));
@@ -93,6 +94,7 @@ public class ManageBooks extends JInternalFrame {
         pAddBook.add(addBooks);
         addBooks.setFont(frame.titleFont);
         
+        //สีใน AddBooks
         pAddBook.setBackground(new Color(69,68,68));
         addBooks.setForeground(Color.WHITE);
         addBooks.setBackground(new Color(250,0,100));
@@ -121,9 +123,9 @@ public class ManageBooks extends JInternalFrame {
         pSearch.add(searchTF);
         pSearch.add(search);
         
+        //สีใน SearchBar
         searchCB.setBackground(new Color(250,0,100));
         searchCB.setForeground(Color.white);
-        
         pSearch.setBackground(new Color(69,68,68));
         search.setBackground(new Color(250,0,100));
         search.setForeground(Color.white);
