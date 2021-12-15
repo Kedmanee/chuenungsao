@@ -14,15 +14,18 @@ public class Member extends User{
     private String nationalID;
     private String phoneNumber;
 
-    public Member(String id, String firstName, String lastName, String address, String nationalID) {
+    public Member(String id, String firstName, String lastName, String address, String nationalID, String phoneNumber) {
         super(id, firstName, lastName);
         this.address = address;
         this.nationalID = nationalID;
+        this.phoneNumber = phoneNumber;
     }
 
     public Member() {
+        super();
         this.address = "";
         this.nationalID = "";
+        this.phoneNumber = "";
     }
 
     //register new member
@@ -32,7 +35,8 @@ public class Member extends User{
                 .append("firstName", super.getFirstName())
                 .append("lastName", super.getLastName())
                 .append("address", this.address)
-                .append("nationalID", this.nationalID);
+                .append("nationalID", this.nationalID)
+                .append("phoneNumber", this.phoneNumber);
         mongoDB.getMemberCollection().insertOne(doc);
     }
 
@@ -44,7 +48,7 @@ public class Member extends User{
         FindIterable<Document> iterable = mongoDB.getMemberCollection().find();
         iterable.into(results);
         for(Document iterate : iterable) {
-            Member member = new Member(iterate.getString("id"),iterate.getString("firstName"),iterate.getString("lastName"),iterate.getString("address"),iterate.getString("nationalID"));
+            Member member = new Member(iterate.getString("id"),iterate.getString("firstName"),iterate.getString("lastName"),iterate.getString("address"),iterate.getString("nationalID"),iterate.getString("phoneNumber"));
             memberList.add(member);
         }
         return memberList;
@@ -66,4 +70,8 @@ public class Member extends User{
     public void setNationalID(String nationalID) {
         this.nationalID = nationalID;
     }
+
+    public String getPhoneNumber() {return phoneNumber;}
+
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 }
