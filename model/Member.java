@@ -12,6 +12,7 @@ public class Member extends User{
 
     private String address;
     private String nationalID;
+    private String phoneNumber;
 
     public Member(String id, String firstName, String lastName, String address, String nationalID) {
         super(id, firstName, lastName);
@@ -48,6 +49,7 @@ public class Member extends User{
         }
         return memberList;
     }
+
 
     public String getAddress() {
         return address;
