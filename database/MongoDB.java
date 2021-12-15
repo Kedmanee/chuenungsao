@@ -29,6 +29,7 @@ public class MongoDB {
     public MongoCollection<Document> getAdminCollection(){
         return getDatabase().getCollection("admin");
     }
+    public MongoCollection<Document> getNonMemberCollection(){return getDatabase().getCollection("non-member");}
 
 
 }
