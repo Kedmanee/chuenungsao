@@ -34,14 +34,25 @@ public class Admin extends User{
     public List<Admin> getAdminList(){
         List<Admin> adminList = new LinkedList<Admin>();
         MongoDB mongoDB = new MongoDB();
-        List<Document> results = new ArrayList<>();
-        FindIterable<Document> iterable = mongoDB.getMemberCollection().find();
-        iterable.into(results);
+        FindIterable<Document> iterable = mongoDB.getAdminCollection().find();
         for(Document iterate : iterable) {
             Admin Admin = new Admin(iterate.getString("id"),iterate.getString("firstName"),iterate.getString("lastName"),iterate.getString("password"));
             adminList.add(Admin);
         }
         return adminList;
+    }
+
+    public boolean isLogin(String id, String password){
+        List<Admin> adminList = new LinkedList<Admin>();
+        MongoDB mongoDB = new MongoDB();
+        Document doc = new Document("id", id);
+        FindIterable<Document> iterable = mongoDB.getAdminCollection().find(doc);
+        for(Document iterate : iterable) {
+            if (iterate.getString("password").equals(password)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getPassword() {
