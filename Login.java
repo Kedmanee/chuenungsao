@@ -49,4 +49,93 @@ public class Login {
         
         
     }
+
+    public JFrame getFr() {
+        return fr;
+    }
+
+    public void setFr(JFrame fr) {
+        this.fr = fr;
+    }
+
+    public JLabel getUser() {
+        return user;
+    }
+
+    public void setUser(JLabel user) {
+        this.user = user;
+    }
+
+    public JLabel getPass() {
+        return pass;
+    }
+
+    public void setPass(JLabel pass) {
+        this.pass = pass;
+    }
+
+    public JLabel getLog() {
+        return log;
+    }
+
+    public void setLog(JLabel log) {
+        this.log = log;
+    }
+
+    public JPanel getMainp() {
+        return mainp;
+    }
+
+    public void setMainp(JPanel mainp) {
+        this.mainp = mainp;
+    }
+
+    public JPanel getUserp() {
+        return userp;
+    }
+
+    public void setUserp(JPanel userp) {
+        this.userp = userp;
+    }
+
+    public JPanel getPassp() {
+        return passp;
+    }
+
+    public void setPassp(JPanel passp) {
+        this.passp = passp;
+    }
+
+    public JPanel getNop() {
+        return nop;
+    }
+
+    public void setNop(JPanel nop) {
+        this.nop = nop;
+    }
+
+    public JButton getLogin() {
+        return login;
+    }
+
+    public void setLogin(JButton login) {
+        this.login = login;
+    }
+
+    public JTextField getUsert() {
+        return usert;
+    }
+
+    public void setUsert(JTextField usert) {
+        this.usert = usert;
+    }
+
+    public JTextField getPasst() {
+        return passt;
+    }
+
+    public void setPasst(JTextField passt) {
+        this.passt = passt;
+    }
+    
 }
