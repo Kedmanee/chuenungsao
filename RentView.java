@@ -1,100 +1,139 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class RentView extends JInternalFrame {
-    //ประกาศตัวแปรหน้าหลัก เอาไว้เก็บหน้าหลักเพื่อเรียกใช้ getter setter
-    private MDI frame;
-    private JTable table;
-    DefaultTableModel model;
-    private JPanel panel, pn_input, pn_ctrl, pn_submit;
-    private JLabel lb1, lb2;
-    private JTextField textId, textDayrent;
-    private JButton btnAdd, btnDelete, btnDetail, btnSubmit;
 
-    
-    //สร้าง contructor ที่รับหน้าหลักมาด้วยเพื่อเก็บไว้ในตัวแปรด้านบน
-    public RentView(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconificable, MDIExample frame) {
-        super(title, resizable, closable, maximizable, iconificable);
+    //ประกาศ Table แสดงข้อมูล
+    private DefaultTableModel model;
+    private JTable tableOfRentals;
+    private JScrollPane scroll;
+    private JButton btn_submit, btn_add, button, button2;
+    private JPanel pHeading, pAddBook, pn_addbook, pButtonCTRL, pHeadTop;
+    private JLabel heading, bookCode, textDayrent;
+    private JTextField bookCodeTF, textDayrentTF;
+
+    //main Desktop
+    private MDI frame;
+
+    public RentView(boolean resizable, boolean closable, boolean maximizable, boolean iconificable, MDI frame) {
+        super("model.Book Rentals", resizable, closable, maximizable, iconificable);
         this.frame = frame;
-        //เรียกฟังก์ชัน init
         this.init();
     }
 
-    
     public void init() {
-        table = new JTable();
-        model = (DefaultTableModel) table.getModel();
-        model.addColumn("รหัสหนังสือ");
+        button = new JButton();
+        button2 = new JButton();
+        //หัวข้อการจัดการหนังสือ
+        heading = new JLabel("Book Rentals");
+        heading.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 56));
+        pHeading = new JPanel();
+        pHeading.add(heading);
+        pHeading.setBackground(new Color(69,68,68));
+        heading.setForeground(Color.WHITE);
+
+        //ตารางแสดงข้อมูลหนังสือ
+        model = new DefaultTableModel();
+        tableOfRentals = new JTable();
+        scroll = new JScrollPane(tableOfRentals);
+        model.addColumn("Book ID");
         model.addColumn("ชื่อหนังสือ");
-        panel = new JPanel();
-        pn_input = new JPanel();
-        pn_ctrl = new JPanel();
-        pn_submit = new JPanel();
-        lb1 = new JLabel("รหัสหนังสือ");
-        lb2 = new JLabel("จำนวนวัน");
-        textId = new JTextField(5);
-        textDayrent = new JTextField(5);
-        btnAdd = new JButton("เพิ่ม");
-        btnDelete = new JButton("ลบ");
-        btnDetail = new JButton("รายละเอียดหนังสือ");
-        btnSubmit = new JButton("ยืนยัน");
+        model.addColumn("จำนวนวัน");
+        model.addColumn("");
+        model.addColumn("");
+        model.addColumn("");
+        model.addColumn("");
+
+        tableOfRentals.setModel(model);
+        //ปุ่มในตาราง
+
+        //set ความสูง
+        tableOfRentals.setRowHeight(100);
+        //set font
+        tableOfRentals.getTableHeader().setFont(frame.headFont.deriveFont(30f));
+        tableOfRentals.getTableHeader().setOpaque(false);
+        tableOfRentals.setFont(frame.titleFont);
+        
+        //สี ของ ตาราง
+        tableOfRentals.setBackground(new Color(69,69,69));
+        tableOfRentals.setForeground(Color.white);
+        tableOfRentals.getTableHeader().setBackground(new Color(100,100,100));
+        tableOfRentals.getTableHeader().setOpaque(false);
+        tableOfRentals.getTableHeader().setForeground(Color.white);
+        
+        //text อยู่ตรงกลาง ในตาราง
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tableOfRentals.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableOfRentals.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tableOfRentals.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
+        //คืนหนังสือ
+        pn_addbook = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        bookCode = new JLabel("Book ID");
+        bookCode.setFont(frame.titleFont);
+        bookCodeTF = new JTextField(5);
+        textDayrent = new JLabel("จำนวนวัน");
+        textDayrent.setFont(frame.titleFont);
+        textDayrentTF = new JTextField(5);
+        bookCodeTF.setFont(frame.titleFont);
+        textDayrentTF.setFont(frame.titleFont);
+        btn_add = new JButton("Add");
+        btn_add.setFont(frame.titleFont);
+        pn_addbook.add(bookCode);
+        pn_addbook.add(bookCodeTF);
+        pn_addbook.add(textDayrent);
+        pn_addbook.add(textDayrentTF);
+        pn_addbook.add(btn_add);
+        
+        //สีใน n_addbooks
+        pn_addbook.setBackground(new Color(69,68,68));
+        textDayrent.setForeground(Color.WHITE);
+        bookCode.setForeground(Color.WHITE);
+        btn_add.setBackground(new Color(250,0,100));
+        btn_add.setForeground(Color.white);
+
+        //เพิ่มหนังสือ
+        pAddBook = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        btn_submit = new JButton("Submit");
+        pAddBook.add(btn_submit);
+        btn_submit.setFont(frame.titleFont);
+        
+        //สีใน btn_submit
+        pAddBook.setBackground(new Color(69,68,68));
+        btn_submit.setForeground(Color.WHITE);
+        btn_submit.setBackground(new Color(250,0,100));
+
+
+        //นำเพิ่มกับคืนรวมกัน
+        pButtonCTRL = new JPanel(new GridLayout(1, 2));
+        pButtonCTRL.add(pn_addbook);
+        pButtonCTRL.add(pAddBook);
 
         
-        table.setModel(model);
-        table.setRowHeight(30);
-        table.setFont(new Font("Angsana new", Font.BOLD, 20));
-        table.getTableHeader().setFont(new Font("Angsana new", Font.BOLD, 20));
-        lb1.setFont(new Font("Angsana new", Font.BOLD, 20));
-        lb2.setFont(new Font("Angsana new", Font.BOLD, 20));
-        btnAdd.setFont(new Font("Angsana new", Font.BOLD, 20));
-        btnDelete.setFont(new Font("Angsana new", Font.BOLD, 20));
-        btnDetail.setFont(new Font("Angsana new", Font.BOLD, 20));
-        btnSubmit.setFont(new Font("Angsana new", Font.BOLD, 20));
 
-        
-        pn_input.setLayout(new FlowLayout());
-        pn_input.add(lb1);
-        pn_input.add(textId);
-        pn_input.add(lb2);
-        pn_input.add(textDayrent);
-        pn_input.add(btnAdd);
-        pn_ctrl.setLayout(new FlowLayout());
-        pn_ctrl.add(btnDelete);
-        pn_ctrl.add(btnDetail);
-        pn_submit.setLayout(new FlowLayout());
-        pn_submit.add(btnSubmit);
-        panel.setLayout(new GridLayout(3, 1));
-        panel.add(pn_input);
-        panel.add(pn_ctrl);
-        panel.add(pn_submit);
 
-        this.add(table.getTableHeader(), BorderLayout.NORTH);
-        this.add(table, BorderLayout.CENTER);
-        this.add(panel, BorderLayout.SOUTH);
-        JScrollPane pane = new JScrollPane(table);
-        this.add(pane);
+        //หัวข้อกับค้นหารวมกัน
+        pHeadTop = new JPanel(new GridLayout(1, 1));
+        pHeadTop.add(pHeading);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600,500);
+        //ลบ Title bar
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+
+        frame.setTitle("Book Rentals");
+        this.setLayout(new BorderLayout());
+        this.getContentPane().add(pHeadTop, BorderLayout.NORTH);
+        this.getContentPane().add(scroll);
+        this.getContentPane().add(pButtonCTRL, BorderLayout.SOUTH);
+        this.pack();
         this.setVisible(true);
-    }
-    
-    
-    public MDI getFrame() {
-        return frame;
-    }
 
-    public void setFrame(MDI frame) {
-        this.frame = frame;
-    }
-
-    public JTable getTable() {
-        return table;
-    }
-
-    public void setTable(JTable table) {
-        this.table = table;
     }
 
     public DefaultTableModel getModel() {
@@ -105,99 +144,146 @@ public class RentView extends JInternalFrame {
         this.model = model;
     }
 
-    public JPanel getPanel() {
-        return panel;
+    public JTable getTableOfRentals() {
+        return tableOfRentals;
     }
 
-    public void setPanel(JPanel panel) {
-        this.panel = panel;
+    public void setTableOfRentals(JTable tableOfRentals) {
+        this.tableOfRentals = tableOfRentals;
     }
 
-    public JPanel getPn_input() {
-        return pn_input;
+    public JScrollPane getScroll() {
+        return scroll;
     }
 
-    public void setPn_input(JPanel pn_input) {
-        this.pn_input = pn_input;
+    public void setScroll(JScrollPane scroll) {
+        this.scroll = scroll;
     }
 
-    public JPanel getPn_ctrl() {
-        return pn_ctrl;
+    public JButton getBtn_submit() {
+        return btn_submit;
     }
 
-    public void setPn_ctrl(JPanel pn_ctrl) {
-        this.pn_ctrl = pn_ctrl;
+    public void setBtn_submit(JButton btn_submit) {
+        this.btn_submit = btn_submit;
     }
 
-    public JPanel getPn_submit() {
-        return pn_submit;
+
+    public JButton getBtn_add() {
+        return btn_add;
     }
 
-    public void setPn_submit(JPanel pn_submit) {
-        this.pn_submit = pn_submit;
+    public void setBtn_add(JButton btn_add) {
+        this.btn_add = btn_add;
     }
 
-    public JLabel getLb1() {
-        return lb1;
+
+    public JPanel getpHeading() {
+        return pHeading;
     }
 
-    public void setLb1(JLabel lb1) {
-        this.lb1 = lb1;
+    public void setpHeading(JPanel pHeading) {
+        this.pHeading = pHeading;
     }
 
-    public JLabel getLb2() {
-        return lb2;
+    public JPanel getpAddBook() {
+        return pAddBook;
     }
 
-    public void setLb2(JLabel lb2) {
-        this.lb2 = lb2;
+    public void setpAddBook(JPanel pAddBook) {
+        this.pAddBook = pAddBook;
     }
 
-    public JTextField getTextId() {
-        return textId;
+    public JPanel getPn_addbook() {
+        return pn_addbook;
     }
 
-    public void setTextId(JTextField textId) {
-        this.textId = textId;
+    public void setPn_addbook(JPanel pn_addbook) {
+        this.pn_addbook = pn_addbook;
     }
 
-    public JTextField getTextDayrent() {
+
+    public JPanel getpButtonCTRL() {
+        return pButtonCTRL;
+    }
+
+    public void setpButtonCTRL(JPanel pButtonCTRL) {
+        this.pButtonCTRL = pButtonCTRL;
+    }
+
+    public JPanel getpHeadTop() {
+        return pHeadTop;
+    }
+
+    public void setpHeadTop(JPanel pHeadTop) {
+        this.pHeadTop = pHeadTop;
+    }
+
+    public JLabel getHeading() {
+        return heading;
+    }
+
+    public void setHeading(JLabel heading) {
+        this.heading = heading;
+    }
+
+    public JLabel getBookCode() {
+        return bookCode;
+    }
+
+    public void setBookCode(JLabel bookCode) {
+        this.bookCode = bookCode;
+    }
+
+    public JLabel getTextDayrent() {
         return textDayrent;
     }
 
-    public void setTextDayrent(JTextField textDayrent) {
+    public void setTextDayrent(JLabel textDayrent) {
         this.textDayrent = textDayrent;
     }
 
-    public JButton getBtnAdd() {
-        return btnAdd;
+    public JTextField getBookCodeTF() {
+        return bookCodeTF;
     }
 
-    public void setBtnAdd(JButton btnAdd) {
-        this.btnAdd = btnAdd;
+    public void setBookCodeTF(JTextField bookCodeTF) {
+        this.bookCodeTF = bookCodeTF;
     }
 
-    public JButton getBtnDelete() {
-        return btnDelete;
+    public JTextField getTextDayrentTF() {
+        return textDayrentTF;
     }
 
-    public void setBtnDelete(JButton btnDelete) {
-        this.btnDelete = btnDelete;
+    public void setTextDayrentTF(JTextField textDayrentTF) {
+        this.textDayrentTF = textDayrentTF;
     }
 
-    public JButton getBtnDetail() {
-        return btnDetail;
+    public MDI getFrame() {
+        return frame;
     }
 
-    public void setBtnDetail(JButton btnDetail) {
-        this.btnDetail = btnDetail;
+    public void setFrame(MDI frame) {
+        this.frame = frame;
     }
 
-    public JButton getBtnSubmit() {
-        return btnSubmit;
-    }
+    
 
-    public void setBtnSubmit(JButton btnSubmit) {
-        this.btnSubmit = btnSubmit;
+    private static class HeaderRenderer implements TableCellRenderer {
+
+        DefaultTableCellRenderer renderer;
+
+        public HeaderRenderer(JTable table) {
+            renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            renderer.setHorizontalAlignment(JLabel.CENTER);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int col) {
+            return renderer.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, col);
+        }
     }
 }
