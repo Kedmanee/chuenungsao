@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import model.Book;
 import model.Member;
 
@@ -62,6 +65,15 @@ public class NonMem extends JInternalFrame implements ActionListener{
         cardid_header = new JLabel("National ID: "); cardid = new JTextField(15);
         p_cardid.add(cardid_header); p_cardid.add(cardid);
         cardid_header.setFont(f1); cardid.setFont(f1);
+        cardid.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+                if(!isNumber(ch)){
+                    e.consume();
+                }
+            }
+        });
 
         cardid_header.setForeground(Color.WHITE);
         p_cardid.setBackground(new Color(69,68,68));
@@ -129,5 +141,9 @@ public class NonMem extends JInternalFrame implements ActionListener{
             this.frame.getPrice_pre().setVisible(true);
             this.frame.getNonmem().setVisible(false);
         }
+    }
+
+    public boolean isNumber(char ch){
+        return ch >= '0' && ch <= '9';
     }
 }
