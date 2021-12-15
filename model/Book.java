@@ -23,6 +23,7 @@ public class Book {
         this.categories = categories;
         this.status = status;
         this.writer = writer;
+        this.price = price;
         this.day = day;
     }
     public Book() {
@@ -89,9 +90,7 @@ public class Book {
     public void returnBook(int id){
         MongoDB mongoDB = new MongoDB();
         Document ID = new Document("bookID", id);
-        List<Document> results = new ArrayList<>();
         FindIterable<Document> iterable = mongoDB.getBookCollection().find(ID);
-        iterable.into(results);
         for(Document iterate : iterable) {
             Book book = new Book(iterate.getInteger("bookID"),iterate.getString("title"),iterate.getString("categories"),iterate.getBoolean("status"),iterate.getString("writer"),iterate.getDouble("price"),iterate.getInteger("day"));
             Document returnbook = new Document("bookID", book.bookID)
@@ -103,6 +102,18 @@ public class Book {
                     .append("day", 0);
                 mongoDB.getBookCollection().replaceOne(ID, returnbook);
         }
+    }
+    public void editBookDetail(){
+        MongoDB mongoDB = new MongoDB();
+        Document ID = new Document("bookID", this.bookID);
+            Document editBook = new Document("bookID", this.bookID)
+                    .append("title", this.title)
+                    .append("categories", this.categories)
+                    .append("status", true)
+                    .append("writer", this.writer)
+                    .append("price", this.price)
+                    .append("day", this.day);
+            mongoDB.getBookCollection().replaceOne(ID, editBook);
     }
 
     public String getTitle() {
