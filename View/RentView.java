@@ -143,7 +143,7 @@ public class RentView extends JInternalFrame {
         this.getContentPane().add(pTable_dltbtn);
         this.getContentPane().add(pButtonCTRL, BorderLayout.SOUTH);
         this.pack();
-        this.setVisible(true);//แก้
+        this.setVisible(false);//แก้
     }
 
     public DefaultTableModel getModel() {
