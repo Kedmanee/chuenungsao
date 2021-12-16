@@ -1,20 +1,17 @@
 package View;
 
-import Controller.Controller;
+import Controller.ManageBookController;
 import model.Book;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.Icon;
 
 
 public class ManageBooks extends JInternalFrame implements InternalFrameListener {
@@ -28,15 +25,16 @@ public class ManageBooks extends JInternalFrame implements InternalFrameListener
     private JLabel heading, bookCode;
     private JTextField bookCodeTF, searchTF;
     private JComboBox searchCB;
-    private Controller controller;
+    private ManageBookController controller;
 
     //main Desktop
     private MDI frame;
 
-    public ManageBooks(boolean resizable, boolean closable, boolean maximizable, boolean iconificable, MDI frame, Controller controller) {
+    public ManageBooks(boolean resizable, boolean closable, boolean maximizable, boolean iconificable, ManageBookController controller, MDI frame) {
         super("Manage Books", resizable, closable, maximizable, iconificable);
         this.controller = controller;
         this.frame = frame;
+        addBooks = new JButton("Add a Book");
         init();
     }
 
@@ -44,7 +42,7 @@ public class ManageBooks extends JInternalFrame implements InternalFrameListener
 
         //หัวข้อการจัดการหนังสือ
         heading = new JLabel("Book Management");
-        heading.setFont(new Font("Arial Rounded MT Bold", 0, 50));
+        heading.setFont(new Font("Arial Rounded MT Bold", 0, 52));
         pHeading = new JPanel();
         pHeading.add(heading);
 
@@ -120,7 +118,7 @@ public class ManageBooks extends JInternalFrame implements InternalFrameListener
 
         //เพิ่มหนังสือ
         pAddBook = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        addBooks = new JButton("Add a Book");
+        //addBooks = new JButton("Add a Book");
         pAddBook.add(addBooks);
         addBooks.setFont(frame.titleFont);
         //สีใน AddBooks
@@ -232,11 +230,11 @@ public class ManageBooks extends JInternalFrame implements InternalFrameListener
 
     }
 
-    public Controller getController() {
+    public ManageBookController getController() {
         return controller;
     }
 
-    public void setController(Controller controller) {
+    public void setController(ManageBookController controller) {
         this.controller = controller;
     }
 
@@ -390,6 +388,30 @@ public class ManageBooks extends JInternalFrame implements InternalFrameListener
 
     public void setFrame(MDI frame) {
         this.frame = frame;
+    }
+
+    public JButton getBack() {
+        return back;
+    }
+
+    public void setBack(JButton back) {
+        this.back = back;
+    }
+
+    public JPanel getpBack() {
+        return pBack;
+    }
+
+    public void setpBack(JPanel pBack) {
+        this.pBack = pBack;
+    }
+
+    public JPanel getpHeadingAndBack() {
+        return pHeadingAndBack;
+    }
+
+    public void setpHeadingAndBack(JPanel pHeadingAndBack) {
+        this.pHeadingAndBack = pHeadingAndBack;
     }
 
     private static class HeaderRenderer implements TableCellRenderer {

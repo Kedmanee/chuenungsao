@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 
+import Controller.LoginController;
+
 /**
  *
  * @author lenovo
  */
 public class Main {
     public static void main(String[] args) {
-        new controller();
+        new LoginController();
     }
 }

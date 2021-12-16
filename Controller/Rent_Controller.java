@@ -1,5 +1,6 @@
 package Controller;
 import View.MDI;
+import View.RentView;
 import model.Book;
 import java.awt.*;
 import java.awt.Component;
@@ -23,10 +24,12 @@ public class Rent_Controller implements ActionListener {
     private ButtonRenderer btn;
     private JButton button;
     private int keepRow;
+    private RentView view;
 
 
-    public Rent_Controller() {
-        main = new MDI();
+    public Rent_Controller(RentView view, MDI main) {
+        this.view = view;
+        this.main = main;
         bookDB = new Book();
         infoBook = new InfoBook();
         btn = new ButtonRenderer();
@@ -36,17 +39,18 @@ public class Rent_Controller implements ActionListener {
         button.setBackground(new Color(69, 69, 69));
         button.setForeground(Color.white);
         button.addActionListener(this);
-        main.getRentview().getBtn_add().addActionListener(this);
-        main.getRentview().getBtn_submit().addActionListener(this);
-        main.getRentview().getBtn_delete().addActionListener(this);
+        main.getRentView().getBtn_add().addActionListener(this);
+        main.getRentView().getBtn_submit().addActionListener(this);
+        main.getRentView().getBtn_delete().addActionListener(this);
+        main.getRentView().getBack().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
 
-        if (ae.getSource().equals(main.getRentview().getBtn_add())) { //ถ้ากดปุ่มAdd
-            int search = Integer.parseInt(main.getRentview().getBookCodeTF().getText());//รับIDที่จะเพิ่มมาจากผู้ใช้
-            int days = Integer.parseInt(main.getRentview().getTextDayrentTF().getText());//รับวันที่จะเพิ่มมาจากผู้ใช้
+        if (ae.getSource().equals(main.getRentView().getBtn_add())) { //ถ้ากดปุ่มAdd
+            int search = Integer.parseInt(main.getRentView().getBookCodeTF().getText());//รับIDที่จะเพิ่มมาจากผู้ใช้
+            int days = Integer.parseInt(main.getRentView().getTextDayrentTF().getText());//รับวันที่จะเพิ่มมาจากผู้ใช้
             Book booklist = new Book();//รับลิสต์หนังสือมาจากdb
             Book book = new Book();//เอาไว้สำหรับรับหนังสือจะยืม
             if (idcheck.indexOf(search) == -1) {
@@ -58,17 +62,17 @@ public class Rent_Controller implements ActionListener {
                     }
                 }
             } else {
-                main.getRentview().getBookCodeTF().setText("");
-                main.getRentview().getTextDayrentTF().setText("");
+                main.getRentView().getBookCodeTF().setText("");
+                main.getRentView().getTextDayrentTF().setText("");
             }
             //เริ่มลูป
 
             //จบลูป
-            if (!Objects.equals(book.getTitle(), "")) {
-                Object[] row = {main.getRentview().getBookCodeTF().getText(), book.getTitle(), main.getRentview().getTextDayrentTF().getText()}; //รับข้อมูลมาใส่ในobject
-                main.getRentview().getModel().addRow(row); //นำrowที่รับข้อมูลต่างๆไปใส่ในตาราง
-                main.getRentview().getTableOfRentals().getColumn("").setCellRenderer(btn);
-                main.getRentview().getTableOfRentals().getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+            if (!Objects.equals(book.getTitle(), "")& book.isStatus()==true) {
+                Object[] row = {main.getRentView().getBookCodeTF().getText(), book.getTitle(), main.getRentView().getTextDayrentTF().getText()}; //รับข้อมูลมาใส่ในobject
+                main.getRentView().getModel().addRow(row); //นำrowที่รับข้อมูลต่างๆไปใส่ในตาราง
+                main.getRentView().getTableOfRentals().getColumn("").setCellRenderer(btn);
+                main.getRentView().getTableOfRentals().getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
                 idcheck.add(search); //เพิ่มไอดีในลิสต์
                 daycheck.add(days); //เพิ่มวันในลิสต์
             }
@@ -76,9 +80,15 @@ public class Rent_Controller implements ActionListener {
             System.out.println("The day are " + daycheck); //เอาไว้เช็คลิสต์ที่เก็บวัน
         }
 
-        else if (ae.getSource().equals(main.getRentview().getBtn_submit())) {
+        else if (ae.getSource().equals(main.getRentView().getBtn_submit())) {
             Book booklist = new Book();//รับลิสต์หนังสือมาจากdb
             Book book = new Book();//เอาไว้สำหรับรับหนังสือจะยืม
+            this.main.getRentView().setVisible(false);
+            this.main.getRentView().hide();
+            this.main.getDesktopPane().remove(this.main.getRentView());
+            this.main.getDesktopPane().add(this.main.getPricePreview());
+            this.main.getPricePreview().setVisible(true);
+            this.main.getPricePreview().show();
 
             for (int j = 0; j < idcheck.size(); j++) {
                 for (int i = 0; i < booklist.getBookList().size(); i++) {
@@ -98,16 +108,16 @@ public class Rent_Controller implements ActionListener {
 
         else if (ae.getSource().equals(button)) {
             int row;
-            if (main.getRentview().getTableOfRentals().getSelectedRow() == -1) {
+            if (main.getRentView().getTableOfRentals().getSelectedRow() == -1) {
                 row = keepRow;
             } else {
-                row = main.getRentview().getTableOfRentals().getSelectedRow();
+                row = main.getRentView().getTableOfRentals().getSelectedRow();
                 keepRow = row;
             }
             System.out.println();
             for (Book checkBook : bookDB.getBookList()) {
-                System.out.println(main.getRentview().getTableOfRentals().getModel().getValueAt(row, 0));
-                if (Integer.parseInt((String) main.getRentview().getTableOfRentals().getModel().getValueAt(row, 0)) == (checkBook.getBookID())) {
+                System.out.println(main.getRentView().getTableOfRentals().getModel().getValueAt(row, 0));
+                if (Integer.parseInt((String) main.getRentView().getTableOfRentals().getModel().getValueAt(row, 0)) == (checkBook.getBookID())) {
                     infoBook.getBookId2().setText(String.valueOf(checkBook.getBookID()));
                     infoBook.getBookNameTF().setText(checkBook.getTitle());
                     infoBook.getCategoryCB().setSelectedItem(checkBook.getCategories());
@@ -118,24 +128,35 @@ public class Rent_Controller implements ActionListener {
             infoBook.getFrame().setVisible(true);
         }
 
-        else if (ae.getSource().equals(main.getRentview().getBtn_delete())) {
-            int index = (main.getRentview().getTableOfRentals().getSelectedRow());
+        else if (ae.getSource().equals(main.getRentView().getBtn_delete())) {
+            int index = (main.getRentView().getTableOfRentals().getSelectedRow());
             idcheck.remove(index);
             daycheck.remove(index);
             /*for (int i : idcheck){
                 System.out.println(i);
             }*/
-            main.getRentview().getModel().setRowCount(0);
+            main.getRentView().getModel().setRowCount(0);
             for (int i = 0; i < idcheck.size(); i++) {
                 for (Book checkbook : bookDB.getBookList()) {
                     if (idcheck.get(i) == checkbook.getBookID()) {
                         Object[] row = {idcheck.get(i), checkbook.getTitle(), daycheck.get(i)}; //รับข้อมูลมาใส่ในobject
-                        main.getRentview().getModel().addRow(row); //นำrowที่รับข้อมูลต่างๆไปใส่ในตาราง
-                        main.getRentview().getTableOfRentals().getColumn("").setCellRenderer(btn);
-                        main.getRentview().getTableOfRentals().getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+                        main.getRentView().getModel().addRow(row); //นำrowที่รับข้อมูลต่างๆไปใส่ในตาราง
+                        main.getRentView().getTableOfRentals().getColumn("").setCellRenderer(btn);
+                        main.getRentView().getTableOfRentals().getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
                     }
                 }
             }
+        }
+
+
+        else if (ae.getSource().equals(main.getRentView().getBack())) {
+            this.main.getRentView().setVisible(false);
+            this.main.getRentView().hide();
+            this.main.getDesktopPane().remove(this.main.getRentView());
+            this.main.getDesktopPane().add(this.main.getMainPage());
+            this.main.getMainPage().setVisible(true);
+            this.main.getMainPage().show();
+
         }
 
     }
@@ -172,5 +193,3 @@ public class Rent_Controller implements ActionListener {
         }
     }
 }
-
-
