@@ -15,6 +15,7 @@ public class LoginController implements ActionListener {
         test = new MDI();
         view = new Login();
         model = new Admin();
+
         view.getUsert().addActionListener(this);
         view.getPasst().addActionListener(this);
         view.getLogin().addActionListener(this);
@@ -25,12 +26,13 @@ public class LoginController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().equals(view.getLogin())) {
-            System.out.printf("test");
             if (model.isLogin(view.getUsert().getText(), view.getPasst().getText())){
+                view.getFr().setVisible(false);
                 test.setVisible(true);
+
             }
             else {
-                JOptionPane.showMessageDialog(null, "ผิดไอ้กาก.", "Insert Command", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Incorrect Username/Password", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

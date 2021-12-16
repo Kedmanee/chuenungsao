@@ -11,6 +11,7 @@ public class MainPage extends JInternalFrame {
     private JPanel photop, mainp, bntp, mainbnt, bnthire;
     private JButton reg, hire, manage;
     private ImageIcon chns;
+    private Font f1 = new Font("Arial Rounded MT Bold", Font.BOLD, 20);
     private MDI frame;
 
     public MainPage(boolean resizable, boolean closable, boolean maximizable, boolean iconificable, MDI frame) {
@@ -36,28 +37,39 @@ public class MainPage extends JInternalFrame {
         photop.add(icon);
         photop.setSize(100, 109);
 
+        photop.setBackground(new Color(69,68,68));
+
         bntp = new JPanel();
         mainbnt = new JPanel();
-        reg = new JButton("register");
-        manage = new JButton("manage");
+        reg = new JButton("Register");
+        manage = new JButton("Manage");
         mainbnt.add(bntp, BorderLayout.CENTER);
         bntp.setLayout(new FlowLayout());
         bntp.add(reg);
         bntp.add(manage);
         mainbnt.add(bntp);
 
+        bntp.setBackground(new Color(69,68,68));
+        mainbnt.setBackground(new Color(69,68,68));
+        reg.setFont(f1); manage.setFont(f1);
+        reg.setBackground(new Color(250,0,100)); reg.setForeground(Color.white);
+        manage.setBackground(new Color(250,0,100)); manage.setForeground(Color.WHITE);
+
         bnthire = new JPanel();
-        hire = new JButton("hire");
+        hire = new JButton("Rent");
         bnthire.setLayout(new FlowLayout());
         bnthire.add(hire);
-        
+
+        bnthire.setBackground(new Color(69,68,68));
+        hire.setBackground(new Color(250,0,100)); hire.setForeground(Color.WHITE); hire.setFont(f1);
+
         this.add(photop);
         this.add(mainbnt);
         this.add(bnthire);
         //ลบ Title bar
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
-        frame.setTitle("Main page");
-        this.pack();
+        frame.setTitle("Main Page");
+        this.setSize(450,400);
         this.setVisible(true);
     }
 
@@ -148,5 +160,5 @@ public class MainPage extends JInternalFrame {
     public void setChns(ImageIcon chns) {
         this.chns = chns;
     }
-    
+
 }
