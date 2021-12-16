@@ -1,68 +1,53 @@
 import java.awt.*;
 import javax.swing.*;
-//loginp เป็น Panel ตรงปุ่ม Login ทำ setter/getter แล้ว
 
 public class Login {
     private JFrame fr;
     public JLabel user, pass,log;
-    private JPanel userp, passp, nop, loginp;
+    private JPanel mainp, userp, passp, nop;
     private JButton login;
     private JTextField usert, passt;
-    private Font f1 = new Font("Arial Rounded MT Bold", Font.BOLD, 15);
     
     public Login(){
         fr = new JFrame();
         fr.setVisible(true);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setLayout(new GridLayout(4,1));
+        fr.setLayout(new GridLayout(3,1));
+        mainp = new JPanel();
         
         userp = new JPanel();
-        user = new JLabel("Username: ");
-        usert = new JTextField(15);
-        userp.setLayout(new FlowLayout());
-        user.setFont(f1);
+        user = new JLabel("Username");
+        usert = new JTextField();
+        userp.setLayout(new GridLayout(1,2));
         userp.add(user);
         userp.add(usert);
-
-        userp.setBackground(new Color(69,68,68));
-        user.setForeground(Color.WHITE);
         
         passp = new JPanel();
-        pass = new JLabel("Password: ");
-        passt = new JTextField(15);
-        passp.setLayout(new FlowLayout());
+        pass = new JLabel("Password");
+        passt = new JTextField();
+        passp.setLayout(new GridLayout(1,2));
         passp.add(pass);
         passp.add(passt);
-        pass.setFont(f1);
-
-        passp.setBackground(new Color(69,68,68));
-        pass.setForeground(Color.WHITE);
         
-        loginp = new JPanel();
-        loginp.setLayout(new FlowLayout());
-        login = new JButton("Log-In");
-        loginp.add(login);
-        login.setFont(f1);
-
-        loginp.setBackground(new Color(69,68,68));
-        login.setBackground(new Color(250,0,100));
-        login.setForeground(Color.WHITE);
+        login = new JButton("Login");
         
         nop = new JPanel();
-        log = new JLabel("Log-In");
+        log = new JLabel("Login");
         nop.add(log);
-        log.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-
-        nop.setBackground(new Color(69,68,68));
-        log.setForeground(Color.WHITE);
+        
+        mainp.setLayout(new GridLayout(3,1));
+        mainp.add(userp);
+        mainp.add(passp);
+        mainp.add(login);
+        mainp.setSize(600,300);
         
         fr.add(nop);
-        fr.add(userp);
-        fr.add(passp);
-        fr.add(loginp);
-        fr.setSize(400,350);
-        fr.setBackground(new Color(69,68,68));
-        fr.setResizable(false);
+        fr.add(mainp);
+        fr.setSize(1000,1000);
+
+        
+        
+        
     }
 
     public JFrame getFr() {
@@ -95,6 +80,14 @@ public class Login {
 
     public void setLog(JLabel log) {
         this.log = log;
+    }
+
+    public JPanel getMainp() {
+        return mainp;
+    }
+
+    public void setMainp(JPanel mainp) {
+        this.mainp = mainp;
     }
 
     public JPanel getUserp() {
@@ -144,8 +137,5 @@ public class Login {
     public void setPasst(JTextField passt) {
         this.passt = passt;
     }
-
-    public void setLoginp(JPanel loginp) {this.loginp = loginp;}
-
-    public JPanel getLoginp(){return loginp;}
+    
 }
