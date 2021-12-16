@@ -17,7 +17,8 @@ public class InfoBook {
         pHeading = new JPanel();
         heading = new JLabel("INFORMATION OF BOOK");
         heading.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
-        pHeading.add(heading);
+        pHeading.add(heading); pHeading.setBackground(new Color(69,68,68));
+        heading.setForeground(Color.white);
 
         //ชื่อหนังสือ
         bookName = new JLabel("Book name : ");
@@ -30,8 +31,8 @@ public class InfoBook {
         pBookNameG.add(p1);
         pBookNameG.add(bookNameTF);
         pBookNameF =new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
-        pBookNameF.add(pBookNameG);
-
+        pBookNameF.add(pBookNameG); pBookNameF.setBackground(new Color(69,68,68)); p1.setBackground(new Color(69,68,68));
+        bookName.setForeground(Color.WHITE);
 
 
         bookId1 = new JLabel("Book Id : ");
@@ -41,6 +42,8 @@ public class InfoBook {
         pBookId = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
         pBookId.add(bookId1);
         pBookId.add(bookId2);
+        pBookId.setBackground(new Color(69,68,68));
+        bookId1.setForeground(Color.WHITE); bookId2.setForeground((Color.WHITE));
 
         category = new JLabel("Category : ");
         category.setFont(new Font("Arial Rounded MT Bold", 0, 20));
@@ -64,6 +67,10 @@ public class InfoBook {
         pCategoryF.add(pCategoryG);
         ((JLabel)categoryCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
+        p2.setBackground(new Color(69,68,68)); pCategoryF.setBackground(new Color(69,68,68));
+        category.setForeground(Color.WHITE);
+        categoryCB.setBackground(new Color(250,0,100)); categoryCB.setForeground(Color.white);
+
         author = new JLabel("Author : ");
         author.setFont(new Font("Arial Rounded MT Bold", 0, 20));
         authorTF = new JTextField(14);
@@ -76,6 +83,8 @@ public class InfoBook {
         pAuthorG.add(authorTF);
         pAuthorF.add(pAuthorG);
 
+        p3.setBackground(new Color(69,68,68)); pAuthorF.setBackground(new Color(69,68,68));
+        author.setForeground(Color.white);
 
         pCategoryAndAuthor = new JPanel(new GridLayout(1,2));
         pCategoryAndAuthor.add(pCategoryF);
@@ -98,16 +107,24 @@ public class InfoBook {
         pPriceF = new JPanel(new FlowLayout(FlowLayout.CENTER,40,10));
         pPriceF.add(pPriceG);
 
+        pPriceF.setBackground(new Color(69,68,68)); p4.setBackground(new Color(69,68,68)); p5.setBackground(new Color(69,68,68));
+        pricePerDay.setForeground(Color.WHITE); baht.setForeground(Color.WHITE);
+
         pInfo = new JPanel(new GridLayout(4,1));
         pInfo.add(pBookId);
         pInfo.add(pBookNameF);
         pInfo.add(pCategoryAndAuthor);
         pInfo.add(pPriceF);
+        pInfo.setBackground(new Color(69,68,68));
 
         pUpdate = new JPanel(new FlowLayout(FlowLayout.LEFT,30,10));
         update = new JButton("Update");
         update.setFont(new Font("Arial Rounded MT Bold", 0, 20));
         pUpdate.add(update);
+
+        pUpdate.setBackground(new Color(69,68,68));
+        update.setBackground(new Color(250,0,100));
+        update.setForeground(Color.white);
 
         Path currentD = Paths.get("src/main/java/img/trash.png");
         String d = currentD.toAbsolutePath().toString();
@@ -119,6 +136,8 @@ public class InfoBook {
         pDelete = new JPanel(new FlowLayout(FlowLayout.RIGHT,30,10));
         pDelete.add(detele);
 
+        pDelete.setBackground(new Color(69,68,68));
+        detele.setBackground(new Color(250,0,100));
 
         pUpdateAndDelete = new JPanel(new GridLayout(1,2));
         pUpdateAndDelete.add(pUpdate);
@@ -131,6 +150,7 @@ public class InfoBook {
         frame.setSize(1100,600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(false);
+        frame.setResizable(false);
 
 
     }
